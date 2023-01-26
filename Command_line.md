@@ -104,11 +104,19 @@ cat '/home/galaxy/shed_tools/toolshed.g2.bx.psu.edu/repos/iuc/deseq2/71bacea10ee
 
 # UCSC views (figure 3, 5, S6, S7, S9)
 
-## Coverage 
+## Coverage for small and RNA seq 
 
-bin size and scaling factor may vary depending on sample and sequencing method (small RNA bin size = 30, RNA bin size = 100, ChIP bin size = 100) scaling factors are reported in table S2
+Bin size and scaling factor may vary depending on sample and sequencing method (small RNA bin size = 30, RNA bin size = 100) scaling factors are reported in table S2
 
 ```
 ln -s '/home/galaxy/galaxy/database/datasets/000/378/dataset_378805.dat' one.bam && ln -s '/home/galaxy/galaxy/database/datasets/_metadata_files/072/metadata_72363.dat' one.bam.bai &&  bamCoverage --numberOfProcessors "${GALAXY_SLOTS:-4}"  --bam one.bam --outFileName '/home/galaxy/galaxy/database/datasets/000/414/dataset_414114.dat' --outFileFormat 'bigwig'  --binSize 30   --exactScaling  --scaleFactor 0.034      --minMappingQuality '1'
 ![image](https://user-images.githubusercontent.com/122443584/212907365-6e354d73-1341-4f13-a140-691ed4e0c86e.png)
+```
+
+## Coverage for chIP seq 
+
+Scaling factor are reported in table S2
+
+```
+ln -s '/home/galaxy/galaxy/database/datasets/000/319/dataset_319565.dat' one.bam && ln -s '/home/galaxy/galaxy/database/datasets/_metadata_files/072/metadata_72354.dat' one.bam.bai && ln -s '/home/galaxy/galaxy/database/datasets/000/319/dataset_319549.dat' two.bam && ln -s '/home/galaxy/galaxy/database/datasets/_metadata_files/072/metadata_72355.dat' two.bam.bai &&  bamCompare --numberOfProcessors "${GALAXY_SLOTS:-4}" --bamfile1 one.bam --bamfile2 two.bam  --outFileName '/home/galaxy/galaxy/database/datasets/000/414/dataset_414105.dat' --outFileFormat 'bigwig'  --binSize 100  --scaleFactors '0.057372969:0.026167837'  --operation subtract         --minMappingQuality '1'![image](https://user-images.githubusercontent.com/123566667/214842393-b9034375-ebcf-47b9-99d4-e3c775cb0daf.png)
 ```
